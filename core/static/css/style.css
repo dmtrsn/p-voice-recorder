@@ -1,0 +1,9 @@
+#logo{
+    width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
+    background: red;
+    position: relative;
+    margin-left: 35%;
+    margin-top: -30%;
+}
