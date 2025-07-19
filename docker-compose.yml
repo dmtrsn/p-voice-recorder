@@ -10,7 +10,7 @@ services:
     build:
       context: .
     ports:
-      - '3456:3456'
+      - '8000:8000'
     container_name: django
     env_file:
       - docker/env/.env.prod
@@ -21,7 +21,7 @@ services:
     command: sh -c "python manage.py collectstatic --no-input &&
                     python manage.py makemigrations &&
                     python manage.py migrate &&
-                    gunicorn --workers=4 --reload --max-requests=1000 voice_rec.wsgi -b 0.0.0.0:3456"
+                    gunicorn --workers=4 --reload --max-requests=1000 voice_rec.wsgi -b 0.0.0.0:8000"
 
   nginx:
     container_name: nginx
@@ -29,8 +29,8 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "4567:4567"
-      - "1234:1234"
+      - "80:80"
+      - "443:443"
     volumes:
       - static:/app/static
       - media:/app/media
@@ -48,6 +48,6 @@ services:
       volumes:
           - ./docker/certbot/conf:/etc/letsencrypt:rw
           - ./docker/certbot/www:/var/www/certbot:rw
-      command: certonly --webroot --webroot-path=/var/www/certbot/ --email pirin@site.com --agree-tos --no-eff-email -d prog.iu9.bmstu.ru
+#      command: certonly --webroot --webroot-path=/var/www/certbot/ --email pirin@site.com --agree-tos --no-eff-email -d prog.iu9.bmstu.ru
       depends_on:
         - nginx

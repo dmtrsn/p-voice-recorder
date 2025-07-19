@@ -21,55 +21,55 @@
                 <a class="nav-link" aria-current="page" href="{% url 'core:index' %}">Main</a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link active" href="">Record</a>
+                <a class="nav-link active" href="">Запись</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{% url 'core:create_link' %}">Create link</a>
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{% url 'core:list_of_records' 'all' %}">List of records</a>
+                <a class="nav-link" aria-current="page" href="{% url 'core:list_of_records' 'all' %}">Список записей</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <h2 class="text-center mt-3">New Record</h2>
+      <h2 class="text-center mt-3">Новая запись</h2>
 
       <div class="container text-center">
         <div class="row align-items-start">
             <div class="col-sm-4 mx-auto">
                 <div class="mt-4">
                   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    If recording does not work on your device, please record on the built-in voice recorder and upload the file to the 
-                      file field of this form. <br>
-                    The flickering of a red point near the microphone image during 
-                      recording means that recording is going on correctly. <br>
-                    If you have any question, please contact us - <strong>danila@posevin.com</strong>
+                    Если диктофон не работает на Вашем устройстве - пожалуйста, запишите аудио на встроенный диктофон и загрузите в специальное 
+                      поле этой формы. <br>
+                    Во время записи мигание красного кружочка рядом с изображением микрофона означает, что приложение «слышит» микрофон и
+                      запись идет корректно. <br>
+                    Если у Вас остались какие-либо вопросы, пожалуйста, напишите нам - <strong>danila@posevin.com</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                     <form class="mt-4" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">
-                          <label for="name" class="form-label">Name</label>
+                          <label for="name" class="form-label">Имя</label>
                           {{ form.name }}
                         </div>
                         <div class="mb-3">
-                          <label for="gender" class="form-label">Gender</label>
+                          <label for="gender" class="form-label">Пол</label>
                           {{ form.gender }}
                         </div>
                         <div class="mb-3">
-                            <label for="age" class="form-label">Age</label>
+                            <label for="age" class="form-label">Возраст</label>
                             {{ form.age }}
                         </div>
                         <div class="mb-3">
-                          <label for="age" class="form-label">Region</label>
+                          <label for="age" class="form-label">Регион</label>
                           {{ form.region }}
                         </div>
                         <div class="mb-3 ml-5">
-                          <button name="record" class="btn btn-primary">Record</button>
-                          <button name="stop" class="btn btn-primary">Stop</button>
-                          <div class="form-text mt-3">or</div>
+                          <button name="record" class="btn btn-primary">Запись</button>
+                          <button name="stop" class="btn btn-primary">Стоп</button>
+                          <div class="form-text mt-3">или</div>
                           {{ form.audio_file }}
                         </div>
                         <div class="mb-3 mt-3">
@@ -78,7 +78,7 @@
                             <div id="logo"></div>
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-3" name="submit">Send</button>
+                        <button type="submit" class="btn btn-primary mb-3" name="submit">Отправить</button>
                       </form>
                 </div>
             </div>

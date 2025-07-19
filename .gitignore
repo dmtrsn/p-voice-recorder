@@ -4,3 +4,5 @@
 __pycache__
 db.sqlite3
 media
+core/migrations
+voice_rec/__pycache__

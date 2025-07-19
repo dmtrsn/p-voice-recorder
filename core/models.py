@@ -4,8 +4,8 @@ from django.utils import timezone
 
 class UserProfile(models.Model):
     GENDER_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ('M', 'Мужчина'),
+        ('F', 'Женщина'),
     ]
 
     REGION_CHOICES = [(0, 'Andalucía'),
@@ -37,12 +37,12 @@ class UserProfile(models.Model):
         ('S', 'Success')
     ]
 
-    name = models.CharField(max_length=100, verbose_name = 'Name')
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name = 'Gender')
-    age = models.IntegerField(choices=AGE_CHOICES, verbose_name = 'Age')
-    region = models.IntegerField(choices=REGION_CHOICES, verbose_name = 'Region')
-    audio_file = models.FileField(upload_to='media/', verbose_name = 'Audiofile')
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name = 'Status', default='P')
+    name = models.CharField(max_length=100, verbose_name = 'Имя')
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name = 'Пол')
+    age = models.IntegerField(choices=AGE_CHOICES, verbose_name = 'Возраст')
+    region = models.IntegerField(choices=REGION_CHOICES, verbose_name = 'Регион')
+    audio_file = models.FileField(upload_to='media/', verbose_name = 'Аудио')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name = 'Статус', default='P')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created At')
 
     class Meta:
