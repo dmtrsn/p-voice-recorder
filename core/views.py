@@ -9,6 +9,8 @@ from zipfile import ZipFile
 from io import BytesIO
 import csv
 import os
+from django.http import JsonResponse
+from django.conf import settings
 
 def index(request):
     return redirect('core:record')
@@ -28,6 +30,18 @@ def record(request):
     form = UserProfileForm()
     return render(request, "core/record.html", {'form': form})
 
+def region_suggestions(request):
+    query = request.GET.get('q', '').strip().lower()
+    path = os.path.join(settings.BASE_DIR, 'regions.txt')
+
+    if not os.path.exists(path):
+        return JsonResponse([], safe=False)
+
+    with open(path, 'r', encoding='utf-8') as f:
+        regions = [line.strip() for line in f if line.strip()]
+    
+    matches = [r for r in regions if query in r.lower()]
+    return JsonResponse(matches, safe=False)
 
 def record_interview(request, id):
     audio = get_object_or_404(UserProfile, id=id)
@@ -69,7 +83,7 @@ def record_details(request, id):
         'name': audio.name,
         'gender': audio.get_gender_display(),
         'age': audio.get_age_display(),
-        'region': audio.get_region_display(),
+        'region': audio.region,
         'status': audio.status,
         'audio_file': audio.audio_file
     }

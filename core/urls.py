@@ -12,4 +12,5 @@ urlpatterns = [
     path('list_of_records/<str:type>', list_of_records, name='list_of_records'),
     path('search/', search, name='search'),
     path("backup/", backup, name="backup"),
+    path('ajax/region-suggestions/', region_suggestions, name='region_suggestions'),
 ]
