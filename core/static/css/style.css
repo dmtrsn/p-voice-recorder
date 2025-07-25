@@ -18,11 +18,11 @@
     overflow-y: auto;
   }
 
-  .autocomplete-suggestion {
-    padding: 8px 12px;
-    cursor: pointer;
-  }
+.autocomplete-suggestion {
+padding: 8px 12px;
+cursor: pointer;
+}
 
-  .autocomplete-suggestion:hover {
-    background-color: #e9ecef;
-  }
+.autocomplete-suggestion:hover {
+background-color: #e9ecef;
+}
