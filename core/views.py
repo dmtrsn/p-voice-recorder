@@ -43,6 +43,12 @@ def region_suggestions(request):
     matches = [r for r in regions if query in r.lower()]
     return JsonResponse(matches, safe=False)
 
+def load_region_dict():
+    with open("eng_regions.txt", encoding="utf-8") as f_en, open("regions.txt", encoding="utf-8") as f_ru:
+        en = [line.strip() for line in f_en]
+        ru = [line.strip() for line in f_ru]
+    return dict(zip(en, ru))
+
 def record_interview(request, id):
     audio = get_object_or_404(UserProfile, id=id)
     if audio.status == 'S':
