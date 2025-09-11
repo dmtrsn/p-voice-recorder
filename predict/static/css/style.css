@@ -1,0 +1,28 @@
+#logo{
+    width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
+    background: red;
+    position: relative;
+    margin-left: 35%;
+    margin-top: -30%;
+}
+
+.autocomplete-suggestions {
+    border: 1px solid #ced4da;
+    background: #fff;
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+.autocomplete-suggestion {
+padding: 8px 12px;
+cursor: pointer;
+}
+
+.autocomplete-suggestion:hover {
+background-color: #e9ecef;
+}
