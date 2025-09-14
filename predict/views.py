@@ -1,10 +1,10 @@
 import subprocess
 import sys
 import os
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from .forms import AudioUploadForm
-from .models import AudioUpload
+from .forms import AudioUploadForm, EditForm
+from .models import AudioUpload, Edit
 
 def upload_audio(request):
     if request.method == 'POST':
@@ -34,14 +34,41 @@ def upload_audio(request):
                 )
                 audio.result = result.stdout.strip()
             except subprocess.CalledProcessError as e:
-                audio.result = f"Ошибка выполнения: {e.stderr.strip()}"
+                audio.result = f"Error: {e.stderr.strip()}"
             audio.save()
-
-            return redirect('predict:result', pk=audio.pk)
+            
+            edit_instance = Edit.objects.create(audio_upload=audio)
+            return redirect('predict:edit', token=edit_instance.token)
     else:
         form = AudioUploadForm()
     return render(request, 'predict/upload.html', {'form': form})
 
+def edit(request, token):
+    edit_instance = get_object_or_404(Edit, token=token)
+    audio = get_object_or_404(AudioUpload, pk=edit_instance.audio_upload.pk)
+    
+    if request.method == 'POST':
+        form = EditForm(request.POST, instance=edit_instance)
+        if form.is_valid():
+            form.save()
+            return redirect('predict:result', pk=audio.pk)
+    else:
+        form = EditForm(instance=edit_instance)
+    
+    return render(request, 'predict/edit.html', {
+        'form': form,
+        'id' : audio.pk,
+        'audio': audio,
+        'token': token
+    })
+
+
 def show_result(request, pk):
-    audio = AudioUpload.objects.get(pk=pk)
-    return render(request, 'predict/result.html', {'audio': audio, 'id': pk})
+    audio = get_object_or_404(AudioUpload, pk=pk)
+    edit_instance = audio.edit_tokens.filter(is_active=True).order_by('-created_at').first()
+    
+    return render(request, 'predict/result.html', {
+        'audio': audio,
+        'edit': edit_instance,
+        'id': pk
+    })

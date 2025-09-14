@@ -62,7 +62,31 @@
                           <pre>{{ audio.result }}</pre>
                         </div>
                       </form>
-                      <!-- <a href="{% url 'predict:upload_audio' %}">predict again</a> -->
+                      <hr>
+                      <h3>Please, appreciate the quality of the model's predict and help improve it. Thank you!</h3>
+                      <form class="mt-4" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Was the prediction correct?</label>
+                          {{ form.is_right }}
+                        </div>
+                        <div class="mb-3">
+                          <label for="gender" class="form-label">Speaker`s gender</label>
+                          {{ form.gender }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Speaker`s age</label>
+                            {{ form.age }}
+                        </div>
+                        <div class="mb-3">
+                          <label for="age" class="form-label">Speaker`s dialect</label>
+                          {{ form.region }}
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button>
+                      </form>
+                      <hr>
+                      <a href="{% url 'predict:upload_audio' %}">predict again</a>
+                      <br><br><br>
                 </div>
             </div>
           </div>
