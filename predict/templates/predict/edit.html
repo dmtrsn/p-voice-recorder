@@ -36,6 +36,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'predict:upload_audio' %}">Predict</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'predict:list_of_predictions' 'all' %}">List of predictions</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -67,20 +70,49 @@
                       <form class="mt-4" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">
-                          <label for="name" class="form-label">Was the prediction correct?</label>
-                          {{ form.is_right }}
+                          <label for="is_right" class="form-label">Was the prediction correct?</label>
+                          {% for choice in form.is_right %}
+                          <div class="form-check">
+                            <label class="form-check-label mr-3" for="{{ choice.id_for_label }}">
+                                    {{ choice.tag }}
+                                    {{ choice.choice_label }}
+                              </label>
+                          </div>
+                          {% endfor %}
+                          <!-- {{ form.is_right }} -->
                         </div>
                         <div class="mb-3">
                           <label for="gender" class="form-label">Speaker`s gender</label>
-                          {{ form.gender }}
+                          {% for choice in form.gender %}
+                          <div class="form-check">
+                            <label class="form-check-label mr-3" for="{{ choice.id_for_label }}">
+                                    {{ choice.tag }}
+                                    {{ choice.choice_label }}
+                              </label>
+                          </div>
+                          {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label for="age" class="form-label">Speaker`s age</label>
-                            {{ form.age }}
+                            {% for choice in form.age %}
+                            <div class="form-check">
+                              <label class="form-check-label mr-3" for="{{ choice.id_for_label }}">
+                                      {{ choice.tag }}
+                                      {{ choice.choice_label }}
+                                </label>
+                            </div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                           <label for="age" class="form-label">Speaker`s dialect</label>
-                          {{ form.region }}
+                          {% for choice in form.region %}
+                          <div class="form-check">
+                            <label class="form-check-label mr-3" for="{{ choice.id_for_label }}">
+                                    {{ choice.tag }}
+                                    {{ choice.choice_label }}
+                              </label>
+                          </div>
+                          {% endfor %}
                         </div>
                         <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button>
                       </form>

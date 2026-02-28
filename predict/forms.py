@@ -23,3 +23,13 @@ class EditForm(forms.ModelForm):
             'age': forms.RadioSelect(),
             'region': forms.RadioSelect(),
         }
+        
+    
+    def __init__(self, *args, **kwargs):
+        super(EditForm, self).__init__(*args, **kwargs)
+        self.fields['is_right'].widget.attrs['class'] = 'form-check-input'
+        self.fields['gender'].widget.attrs['class'] = 'form-check-input'
+        self.fields['age'].widget.attrs['class'] = 'form-check-input'
+        self.fields['region'].widget.attrs['class'] = 'form-check-input'
+
+        # self.fields['is_right'].widget.attrs['type'] = 'radio'
